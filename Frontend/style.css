@@ -142,3 +142,16 @@ video{
         width: 20vw;
     }
 }
+
+#newjoindiv{
+    text-align: center;
+    background-color: ghostwhite;
+    padding: 1vh 1vw;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    max-width: 30%;
+    align-items: center;
+    margin: 1vh auto;
+    clear: both;
+}

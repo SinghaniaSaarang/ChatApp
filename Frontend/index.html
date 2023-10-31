@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatApp</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="../Backend/client.js"></script>
 </head>
 <body>
     <div class="logo">
@@ -14,7 +16,7 @@
           </video>
     </div>
     <div class="container">
-        <div class="messagebox">
+        <div class="messagebox" id="messagebox">
             <div class="message left">Hi</div>
             <div class="message right">Hello</div>
             <!-- <div class="message left">Hi</div>
@@ -41,7 +43,7 @@
             <div class="message right">Hello</div> -->
         </div>
         <div class="send">
-            <form action="#">
+            <form action="#" id="message-form">
                 <input type="text" id="inputmsg" class="inputmsg" name="inputmsg" placeholder="Messages...">
                 <button class="btn" id="msgsendbtn" type="submit">Send</button>
             </form>
