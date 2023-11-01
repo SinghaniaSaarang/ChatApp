@@ -21,13 +21,15 @@ app.get('/Backend/client.js', function (req, res) {
 
   io.on('connection',socket=>{
     socket.on('new-user',name=>{
-        console.log(`${name} joined, Users:-${users.length}`);
+        console.log(`${name} joined, Users:-${Object.keys(users).length+1}`);
         users[socket.id]=name;
         socket.broadcast.emit('user-joined',name);
+        // socket.emit('total-users',users);
+        io.emit('total-users',users);
     })
 
     socket.on('send',message=>{
-        socket.broadcast.emit({message:message,name:users[socket.id]});
+        socket.broadcast.emit('receive',{message:message,name:users[socket.id]});
     })
   })
 

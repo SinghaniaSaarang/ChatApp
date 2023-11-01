@@ -36,11 +36,47 @@ video{
     overflow-y: auto; */
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     
 }
 
+.chatpeoples{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   /* width: 100%; */
+}
+
+/* .chatpeoples div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+} */
+
+/* .chatpeoples div h2 {
+    background-color: whitesmoke;
+    padding: 1vh 1vw;
+    margin: 1vh 1vw;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+} */
+
+.chatpeoples h2 {
+    background-color: whitesmoke;
+    padding: 1vh 1vw;
+    margin: 1vh 1vw;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+
 .messagebox{
-    height: 72vh;
+    height: 65vh;
     /* min-height: 60vh; */
     /* max-height: 80vh; */
     scroll-behavior: smooth;
@@ -53,6 +89,7 @@ video{
     padding: 1vh 1vw;
     border-radius: 8px;
     max-width: 30%;
+    overflow-wrap: break-word;
 }
 
 .left{
