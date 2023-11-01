@@ -73,6 +73,11 @@ video{
     font-weight: bold;
 }
 
+.chatpeoples h2:hover {
+    cursor: pointer;
+    box-shadow: 0 .1rem 1rem rgba(0,0,0,0.2);
+}
+
 
 
 .messagebox{
@@ -114,8 +119,12 @@ video{
     flex-direction: row;
 }
 
-.form{
-    width: 100%;
+form{
+    /* width: 100%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 

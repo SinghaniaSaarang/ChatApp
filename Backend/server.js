@@ -31,6 +31,16 @@ app.get('/Backend/client.js', function (req, res) {
     socket.on('send',message=>{
         socket.broadcast.emit('receive',{message:message,name:users[socket.id]});
     })
+
+    socket.on('disconnect', () => {
+      if (users[socket.id]) {
+          // console.log(`${users[socket.id]} left, Users: ${Object.keys(users).length - 1}`);
+          console.log(`${users[socket.id]} left the chat`);
+          socket.broadcast.emit('user-left',users[socket.id]);
+          delete users[socket.id];
+          io.emit('total-users',users);
+      }
+  });
   })
 
 server.listen(3000, () => {
