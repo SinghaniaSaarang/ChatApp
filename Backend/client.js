@@ -6,6 +6,7 @@ const msgsendbtn=document.getElementById('msgsendbtn');
 const messagebox=document.getElementById('messagebox');
 const chatpeoples=document.getElementById('chatpeoples');
 const totalconnected=document.getElementById('total-connected');
+const container=document.getElementById('container');
 
 const name=prompt('Enter your name');
 socket.emit('new-user',name);
@@ -21,6 +22,10 @@ socket.on('user-joined',name=>{
 socket.on('total-users',users=>{
     // const totalconnected=document.getElementById('total-connected');
     totalconnected.innerText=`Connected chats:-${Object.keys(users).length}`;
+    totalconnected.addEventListener('click', () => {
+       addusernames(Object.values(users));
+
+    });
 
     // let usernames='';
     // const totalconnectednames=document.getElementById('total-connected-names');
@@ -67,3 +72,42 @@ socket.on('user-left',name=>{
     messagebox.append(newjoindiv);
     messagebox.scrollTop=messagebox.scrollHeight;
 })
+
+function addusernames(usernames){
+
+    const existingpresentusers=document.querySelector('.presentusers');
+    if(existingpresentusers){
+        existingpresentusers.remove();
+    }
+
+
+    const presentusers=document.createElement('div');
+    presentusers.className='presentusers';
+    presentusers.id='presentusers';
+
+    let para='';
+    usernames.forEach(element => {
+        para+=`${element} , `;
+    });
+
+
+
+    const okbtn=document.createElement('button');
+    okbtn.className='btn';
+    okbtn.id='okbtn';
+    okbtn.innerHTML='ok';
+    okbtn.addEventListener('click',()=>{
+        presentusers.remove();
+    })
+
+    presentusers.innerHTML=`
+    <h5>Present users</h2>
+    <div>${para}</div>
+    `;
+
+    presentusers.appendChild(okbtn);
+    container.appendChild(presentusers);
+
+
+
+}
