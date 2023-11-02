@@ -7,6 +7,7 @@ const messagebox=document.getElementById('messagebox');
 const chatpeoples=document.getElementById('chatpeoples');
 const totalconnected=document.getElementById('total-connected');
 const container=document.getElementById('container');
+const typingperson=document.getElementById('typingperson');
 
 const name=prompt('Enter your name');
 socket.emit('new-user',name);
@@ -111,3 +112,40 @@ function addusernames(usernames){
 
 
 }
+
+
+inputmsg.addEventListener('focus',()=>{
+    // console.log('focus is done');
+    socket.emit('typing',true);
+});
+
+inputmsg.addEventListener('focusout',()=>{
+    // console.log('blur done');
+    socket.emit('typing',false);
+});
+
+socket.on('typingmsg',name=>{
+
+    // const existingtypingperson=document.querySelector('.typingperson');
+    // if(existingtypingperson){
+    //     existingtypingperson.remove();
+    // }
+
+    // const typingperson=document.createElement('div');
+    // typingperson.className='typingperson';
+    // typingperson.id='typingperson';
+
+    // const typingperson=document.getElementById('typingperson');
+
+
+    if(name.name!==null){
+        typingperson.innerText=`${name.name} is typing`;
+        messagebox.style=`height:60vh`;//put so that when typing comes it doesn't hamper the height
+        // messagebox.append(typingperson);
+    }
+    else{
+        typingperson.innerText='';
+        messagebox.style=`height:65vh`;
+    }
+    
+})

@@ -18,6 +18,7 @@ app.get('/Backend/client.js', function (req, res) {
 });
 
   const users={};
+  const typingusers={};
 
   io.on('connection',socket=>{
     socket.on('new-user',name=>{
@@ -40,7 +41,42 @@ app.get('/Backend/client.js', function (req, res) {
           delete users[socket.id];
           io.emit('total-users',users);
       }
-  });
+    });
+
+    // const typingusers={};
+
+    // socket.on('typing',verification=>{
+    //   if(verification==true){
+    //     typingusers[socket.id]=users[socket.id];
+    //     socket.broadcast.emit('typingmsg',{name:typingusers[socket.id]});
+    //   }else{
+    //     delete typingusers[socket.id];
+    //     // let currenttyper=Object.values(typingusers)[Object.keys(typingusers).length-1];
+    //     // console.log(Object.values(typingusers)[Object.keys(typingusers).length-1]);
+    //     // let lasttypename=currenttyper!=undefined?currenttyper:null;
+    //     socket.broadcast.emit('typingmsg',{name:Object.values(typingusers)[Object.keys(typingusers).length-1]});
+    //   }
+    // });
+
+    socket.on('typing', verification => {
+      if (verification) {
+        typingusers[socket.id] = users[socket.id];
+      } else {
+        delete typingusers[socket.id];
+      }
+    
+      const typingUserIds = Object.values(typingusers);
+      const lastTypingUserId = typingUserIds[typingUserIds.length - 1];
+    
+      if (lastTypingUserId) {
+        // const lastTypingUser = typingusers[lastTypingUserId];
+        console.log(lastTypingUserId);
+        socket.broadcast.emit('typingmsg', { name: lastTypingUserId });
+      } else {
+        socket.broadcast.emit('typingmsg', { name: null });
+      }
+    });
+    
   })
 
 server.listen(3000, () => {
